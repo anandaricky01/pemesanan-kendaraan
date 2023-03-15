@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+// use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/', [HomeController::class, 'index']);
+
+Auth::routes(['verify' => true]);
+Route::group(['middleware' => ['auth', 'verified']], function(){
+    // Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
 });
