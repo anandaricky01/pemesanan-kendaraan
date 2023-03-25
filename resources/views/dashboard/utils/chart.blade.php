@@ -19,6 +19,7 @@
     smoothing: 1.3
   },
   type: 'scatter',
+  mode: 'lines+markers',
   marker: {
       color: '#38bdf8',
       line: {
@@ -43,7 +44,7 @@ var layout = {
     gridcolor: 'black'
   },
   yaxis:{
-    title:'Tinggi air (Meter)',
+    title:'Kenaikan Tinggi air (Centimeter)',
     linecolor: 'black',
     gridcolor: 'black' // warna garis sumbu x
   }

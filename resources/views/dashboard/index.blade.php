@@ -1,7 +1,7 @@
 @extends('dashboard.layout.layout')
 @section('container')
-<div class="grid grid-rows-2 gap-4">
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg border">
+<div class="grid grid-cols-2 gap-4">
+    <div class="col-span-2 relative overflow-x-auto shadow-md sm:rounded-lg border">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-slate-50 dark:text-white dark:bg-gray-800">
                 Data Baru Masuk
@@ -11,6 +11,9 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         Tanggal
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Tinggi Air
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Device
@@ -26,6 +29,9 @@
                         <tr class="bg-slate-50 border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $item->created_at }}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $item->data }} Centimeter
                             </th>
                             <td class="px-6 py-4">
                                 {{ $item->device->name }}
@@ -47,12 +53,53 @@
             </tbody>
         </table>
     </div>
-    <div class="grid grid-cols-2 gap-4">
-        <div class="bg-slate-50 dark:bg-slate-700 rounded-lg border border border-gray-200 shadow-md">
+    <div class="col-span-2 grid grid-cols-2 gap-4">
+        <div class="md:col-span-1 sm:col-span-2 bg-slate-50 dark:bg-slate-700 rounded-lg border border border-gray-200 shadow-md">
             <div id="tester" class=""></div>
         </div>
-        <div>
-
+        <div class="md:col-span-1 sm:col-span-2 relative overflow-x-auto shadow-md sm:rounded-lg border">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-slate-50 dark:text-white dark:bg-gray-800">
+                    Data Pengunjung Baru
+                    <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Data pengunjung yang mengakses web water level measurement</p>
+                </caption>
+                <thead class="text-xs text-gray-700 uppercase bg-white dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            IP Address
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            User Agent (Browser)
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Url
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($visitors->count() > 0)
+                        @foreach ($visitors->take(5) as $visitor)
+                            <tr class="bg-slate-50 border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $visitor->ip_address }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ Str::limit($visitor->user_agent,10) }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $visitor->url }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" colspan='6' class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Belum ada data Masuk
+                        </th>
+                    </tr>
+                    @endif
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
