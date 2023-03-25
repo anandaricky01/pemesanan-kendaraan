@@ -17,19 +17,13 @@
             document.documentElement.classList.remove('dark')
         }
     </script>
-    {{-- <script src="{{ asset('node_modules/chart.js/dist/chart.js') }}"></script> --}}
-    {{-- <script src="{{ asset('path/to/chart.js') }}"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.js"
-        integrity="sha512-Cv3WnEz5uGwmTnA48999hgbYV1ImGjsDWyYQakowKw+skDXEYYSU+rlm9tTflyXc8DbbKamcLFF80Cf89f+vOQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-
+    <script src="https://cdn.plot.ly/plotly-2.18.2.min.js"></script>
 
     <title>Dashboard Admin</title>
 </head>
 
-<body>
+<body class="dark:bg-slate-900">
     @include('dashboard.layout.components.sidebar')
     <div class="p-4 sm:ml-64">
         <div class="p-4 mt-14">

@@ -30,5 +30,13 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'firebase' => [
+        'credentials' => [
+            'file' => env('FIREBASE_CREDENTIALS')
+        ],
+        'database_uri' => env('FIREBASE_DATABASE_URI'),
+        'project_id' => env('FIREBASE_PROJECT_ID'),
+        'storage_bucket' => env('FIREBASE_STORAGE_BUCKET'),
+    ],
 
 ];

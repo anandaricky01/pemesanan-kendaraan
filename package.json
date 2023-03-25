@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@tailwindcss/forms": "^0.5.3",
-        "chart.js": "^4.1.2"
+        "chart.js": "^4.1.2",
+        "plotly.js-dist": "^2.20.0"
     }
 }

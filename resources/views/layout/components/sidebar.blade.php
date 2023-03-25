@@ -4,7 +4,7 @@
             {{-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
             --}}
             <i class="fill-cyan-500 stroke-0" data-feather="droplet"></i>
-            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">BonKlopo</span>
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Boninfo!</span>
         </a>
         <div class="flex items-center md:order-2">
             <button id="theme-toggle" type="button"
