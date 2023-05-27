@@ -9,8 +9,8 @@ use App\Models\Visitor;
 class DashboardController extends Controller
 {
     public function index(){
-        $dataSensor = Sensor::orderBy('created_at')->get();
-        $sensorTabel = Sensor::orderByDesc('created_at')->get();
+        $dataSensor = Sensor::orderByDesc('created_at')->take(30)->get();
+        $sensorTabel = Sensor::orderByDesc('created_at')->take(30)->get();
         $visitors = Visitor::latest()->get();
         return view('dashboard.index', [
             'sensor' => $dataSensor,

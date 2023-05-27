@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Log extends Model
 {
-    protected $fillable = ['device_id', 'user_id', 'status'];
+    protected $fillable = ['device', 'user', 'status', 'activity'];
 
     use HasFactory;
 
