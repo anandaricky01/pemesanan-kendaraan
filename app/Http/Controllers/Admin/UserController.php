@@ -21,9 +21,9 @@ class UserController extends Controller
         $this->middleware('superadmin')->except(['my_profile', 'edit_my_profile', 'update_my_profile']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $user = User::latest()->paginate(5)->withQueryString();
+        $user = User::latest()->filter($request->only('search'))->paginate(5)->withQueryString();
         return view('dashboard.user.index', [
             'user' => $user
         ]);

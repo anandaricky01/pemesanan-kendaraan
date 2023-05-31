@@ -23,16 +23,17 @@ class DeviceController extends Controller
     //     $this->middleware('sadmin')->except(['sensor']);
     // }
 
-    public function index()
+    public function index(Request $request)
     {
-        $devices = Device::latest()->paginate(5)->withQueryString();
+        $devices = Device::latest()->filter(
+            $request->only('search'))->paginate(5)->withQueryString();
         return view('dashboard.device.index', [
             'devices' => $devices
         ]);
     }
 
-    public function sensor(){
-        $sensors = Sensor::latest()->paginate(10)->withQueryString();
+    public function sensor(Request $request){
+        $sensors = Sensor::latest()->filter($request->only(['startDate', 'endDate']))->paginate(10)->withQueryString();
         return view('dashboard.device.sensor', [
             'sensors' => $sensors
         ]);

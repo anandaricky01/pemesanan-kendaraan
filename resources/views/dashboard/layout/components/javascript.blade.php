@@ -1,5 +1,19 @@
 {{-- <script src="{{ asset('path/to/chart.js') }}"></script> --}}
 <script>
+
+document.onreadystatechange = function () {
+    var loadingScreen = document.getElementById('loading-screen');
+    var notFoundSection = document.getElementById('not-found');
+
+    if (document.readyState === 'complete') {
+        loadingScreen.style.display = 'none';
+        notFoundSection.style.display = 'block';
+    } else {
+        loadingScreen.style.display = 'flex';
+        notFoundSection.style.display = 'none';
+    }
+    };
+    
     var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 

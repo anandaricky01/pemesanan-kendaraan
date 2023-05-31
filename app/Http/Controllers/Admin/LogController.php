@@ -14,8 +14,8 @@ class LogController extends Controller
     //     $this->middleware('superadmin');
     // }
 
-    public function index(){
-        $logs = Log::latest()->paginate(10)->withQueryString();
+    public function index(Request $request){
+        $logs = Log::latest()->filter($request->only(['startDate', 'endDate']))->paginate(10)->withQueryString();
         return view('dashboard.logs.index', [
             'logs' => $logs
         ]);

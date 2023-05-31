@@ -35,8 +35,9 @@
     }
 </style>
 
-<section id="hero">
-    <div class="mt-12 py-10 mb-10">
+{{-- <section id="hero" class="bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"> --}}
+<section id="hero" class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+    <div class="py-10">
         <div class="grid grid-cols-2 gap-4">
             <div class="lg:visible md:visible sm:invisible max-[763px]:hidden">
                 <div
@@ -60,16 +61,16 @@
                     </div>
                 </div>
             </div>
-            <div class="max-[762px]:col-span-2 max-[762px]:text-center max-[762px]:px-3">
+            <div class="mt-12 max-[762px]:col-span-2 max-[762px]:text-center max-[762px]:px-3">
                 <p id='welcome' class="pop-out font-extrabold lg:text-5xl md:text-4xl sm:text-4xl max-[637px]:text-4xl">
                     Pantau <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl">Tinggi Air
                         Sungai</span><br> secara Real-Time</p>
-                <p class="pop-out font-semibold text-lg mt-5">Dapatkan Informasi Terkini tentang Tinggi Air Sungai
+                <p class="pop-out font-semibold text-lg mt-2">Dapatkan Informasi Terkini tentang Tinggi Air Sungai
                     <br>Pemancingan Bon Klopo dengan <a class="text-sky-500 after:content-['_↗'] font-bold"
                         href="{{ route('monitoring') }}">Monitoring</a> Online</p>
                 <a href="{{ route('monitoring') }}">
                     <button type="button" class="mt-3 text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                        Monitor Sekarang
+                        <span class="text-lg">Monitor Sekarang</span>
                     </button>
                 </a>
             </div>

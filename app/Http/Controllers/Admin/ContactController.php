@@ -13,9 +13,9 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::latest()->get();
+        $contacts = Contact::latest()->filter($request->only('search'))->paginate(5)->withQueryString();
 
         return view('dashboard.contact.index', [
             'contacts' => $contacts

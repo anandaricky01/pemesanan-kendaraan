@@ -1,6 +1,12 @@
 @extends('dashboard.layout.layout')
 @section('container')
 @include('dashboard.layout.components.flashMessage')
+<form action="{{ route('dashboard.log.index') }}" class="mb-5 flex">
+    @include('dashboard.layout.components.betweenDatepicker')
+    <div class="p-3">
+        <button type="submit" class="px-4 py-2 bg-sky-500 rounded-lg text-white">Filter</button>
+    </div>
+</form>
 <div class="col-span-2 relative overflow-x-auto shadow-md sm:rounded-lg border">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-slate-50 dark:text-white dark:bg-gray-800">

@@ -10,6 +10,15 @@ class Device extends Model
     protected $fillable = ['name', 'description', 'status'];
     use HasFactory;
 
+    public function scopeFilter($query, array $searchTerm)
+    {
+        $query->when($searchTerm['search'] ?? false, function ($query, $searchTerm) {
+            $query->where(function ($query) use ($searchTerm) {
+                $query->where('name', 'like', '%' . $searchTerm . '%');
+            });
+        });
+    }
+
     public function sensor(){
         return $this->hasMany(Sensor::class);
     }

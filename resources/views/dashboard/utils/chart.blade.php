@@ -10,7 +10,7 @@
       y: [
         @if($sensor->count() > 0)
         @foreach ($sensor as $s)
-          {!! $s->data !!} ,
+          {!! 29 - $s->data !!} ,
         @endforeach
         @endif
       ],

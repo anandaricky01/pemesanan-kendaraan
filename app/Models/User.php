@@ -43,6 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function scopeFilter($query, array $searchTerm)
+    {
+        $query->when($searchTerm['search'] ?? false, function ($query, $searchTerm) {
+            $query->where(function ($query) use ($searchTerm) {
+                $query->where('name', 'like', '%' . $searchTerm . '%');
+            });
+        });
+    }
+
     public function log(){
         return $this->hasMany(Log::class);
     }

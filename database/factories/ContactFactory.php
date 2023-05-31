@@ -17,7 +17,8 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'no_hp' => '085' . $this->faker->randomNumber(9),
         ];
     }
 }

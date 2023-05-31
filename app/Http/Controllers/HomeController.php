@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sensor;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -38,6 +39,9 @@ class HomeController extends Controller
     }
 
     public function about(){
-        return view('about');
+        $contacts = Contact::latest()->get();
+        return view('about', [
+            'contacts' => $contacts
+        ]);
     }
 }
