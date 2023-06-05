@@ -33,9 +33,19 @@ class DeviceController extends Controller
     }
 
     public function sensor(Request $request){
-        $sensors = Sensor::latest()->filter($request->only(['startDate', 'endDate']))->paginate(10)->withQueryString();
+        $data_sensor = Sensor::latest()->filter($request->only(['startDate', 'endDate']));
+        $data_sensor_clone = clone $data_sensor;
+
+        $sensors = $data_sensor->paginate(10)->withQueryString();
+        $data_rekap = [
+            'data_tertinggi' => $data_sensor_clone->min('data'),
+            'data_terendah' => $data_sensor_clone->max('data'),
+            'data_rata_rata' => $data_sensor_clone->avg('data'),
+        ];
+
         return view('dashboard.device.sensor', [
-            'sensors' => $sensors
+            'sensors' => $sensors,
+            'data_rekap' => $data_rekap,
         ]);
     }
 

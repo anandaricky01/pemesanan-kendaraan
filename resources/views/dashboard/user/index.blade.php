@@ -128,6 +128,6 @@
 </div>
 
 <div class="mt-5 text-center">
-    {{ $user->links() }}
+    {{ $user->links('pagination::tailwind') }}
 </div>
 @endsection

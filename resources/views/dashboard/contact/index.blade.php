@@ -116,6 +116,6 @@
 </div>
 
 <div class="mt-5 text-center">
-    {{ $contacts->links() }}
+    {{ $contacts->links('pagination::tailwind') }}
 </div>
 @endsection

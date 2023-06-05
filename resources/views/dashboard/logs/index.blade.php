@@ -73,6 +73,6 @@
 </div>
 
 <div class="mt-5 text-center">
-    {{ $logs->links() }}
+    {{ $logs->links('pagination::tailwind') }}
 </div>
 @endsection

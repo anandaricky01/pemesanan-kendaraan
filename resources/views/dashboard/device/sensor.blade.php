@@ -1,5 +1,62 @@
 @extends('dashboard.layout.layout')
 @section('container')
+<section id="data-rekap" class="mb-5 grid grid-cols-3 gap-4">
+    <div id="data-tertinggi" class="col-span-3 md:col-span-1">
+        <div class="grid grid-cols-3 bg-slate-50 p-3 dark:bg-slate-700 rounded-lg border border-gray-200 shadow-md">
+            <div class="bg-red-500 rounded-full p-3 justify-self-center self-center">
+                <i data-feather="trending-up" class="stroke-white"></i>
+            </div>
+            <div class="col-span-2">
+                <div class="grid grid-rows-2 p-2">
+                    <p class="text-base font-medium dark:text-white">Data Tertinggi</p>
+                    <p class="text-xl font-bold dark:text-white">
+                        @if($data_rekap['data_tertinggi'] != null)
+                            {{ 29 - $data_rekap['data_tertinggi'] < 0 ? 'Turun ' . -1*(29 - $data_rekap['data_tertinggi']) . ' cm' : 'Naik ' . 29 - $data_rekap['data_tertinggi'] . ' cm'}}</p>
+                        @else
+                        {{ 'belum ada data' }}
+                        @endif
+                        </div>
+            </div>
+        </div>
+    </div>
+    <div id="data-terendah" class="col-span-3 md:col-span-1">
+        <div class="grid grid-cols-3 bg-slate-50 p-3 dark:bg-slate-700 rounded-lg border border-gray-200 shadow-md">
+            <div class="bg-emerald-500 rounded-full p-3 justify-self-center self-center">
+                <i data-feather="trending-down" class="stroke-white"></i>
+            </div>
+            <div class="col-span-2">
+                <div class="grid grid-rows-2 p-2">
+                    <p class="text-base font-medium dark:text-white">Data Terendah</p>
+                    <p class="text-xl font-bold dark:text-white">
+                        @if($data_rekap['data_terendah'] != null)
+                            {{ 29 - $data_rekap['data_terendah'] < 0 ? 'Turun ' . -1*(29 - $data_rekap['data_terendah']) . ' cm' : 'Naik ' . 29 - $data_rekap['data_terendah'] . ' cm'}}</p>
+                        @else
+                        {{ 'belum ada data' }}
+                        @endif
+                        </div>
+            </div>
+        </div>
+    </div>
+    <div id="tinggi-rata-rata" class="col-span-3 md:col-span-1">
+        <div class="grid grid-cols-3 bg-slate-50 p-3 dark:bg-slate-700 rounded-lg border border-gray-200 shadow-md">
+            <div class="bg-yellow-300 rounded-full p-3 justify-self-center self-center">
+                <i data-feather="bar-chart-2" class="stroke-white"></i>
+            </div>
+            <div class="col-span-2">
+                <div class="grid grid-rows-2 p-2">
+                    <p class="text-base font-medium dark:text-white">Tinggi rata - rata</p>
+                    <p class="text-xl font-bold dark:text-white">
+                        @if($data_rekap['data_rata_rata'] != null)
+                            {{ 29 - $data_rekap['data_rata_rata'] < 0 ? 'Turun ' . -1*(29 - $data_rekap['data_rata_rata']) . ' cm' : 'Naik ' . 29 - $data_rekap['data_rata_rata'] . ' cm'}}</p>
+                        @else
+                        {{ 'belum ada data' }}
+                        @endif
+                        </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <form action="{{ route('dashboard.sensor') }}" class="mb-5 flex">
     @include('dashboard.layout.components.betweenDatepicker')
     <div class="p-3">
@@ -60,6 +117,6 @@
 </div>
 
 <div class="mt-5 text-center">
-    {{ $sensors->links() }}
+    {{ $sensors->links('pagination::tailwind') }}
 </div>
 @endsection
