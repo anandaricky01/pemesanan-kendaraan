@@ -34,7 +34,9 @@ Auth::routes([
 Route::group(['middleware' => ['auth']], function(){
     Route::group(['prefix' => 'dashboard'], function(){
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/get-latest-data', [DashboardController::class, 'fetchData'])->name('fetch-data');
 
+        Route::get('/device/sensor/print', [DeviceController::class, 'cetak_pdf'])->name('dashboard.sensor.print');
         Route::get('/device/sensor', [DeviceController::class, 'sensor'])->name('dashboard.sensor');
 
         Route::resource('/device', DeviceController::class)
@@ -46,7 +48,7 @@ Route::group(['middleware' => ['auth']], function(){
             ->name('update', 'dashboard.device.update')
             ->name('destroy', 'dashboard.device.delete');
 
-
+        Route::get('/log/print', [logController::class, 'cetak_pdf'])->name('dashboard.log.print');
         Route::get('/log', [LogController::class, 'index'])->name('dashboard.log.index');
 
         Route::get('/my_profile', [UserController::class, 'my_profile'])->name('my_profile');

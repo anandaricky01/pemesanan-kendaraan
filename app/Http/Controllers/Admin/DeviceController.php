@@ -8,6 +8,7 @@ use App\Models\Device;
 use App\Models\Sensor;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use PDF;
 
 class DeviceController extends Controller
 {
@@ -47,6 +48,38 @@ class DeviceController extends Controller
             'sensors' => $sensors,
             'data_rekap' => $data_rekap,
         ]);
+    }
+
+    // untuk cetak pdf data sensor
+    public function cetak_pdf(Request $request){
+        // deklarasi variabel tanggal
+        $tanggal = '';
+
+        // ambil data pada model menggunakan filter dateBetween
+        $data_sensor = Sensor::latest()->filter($request->only(['startDate', 'endDate']));
+
+        if(isset($request->startDate)){
+            $tanggal .= \Carbon\Carbon::createFromFormat('m/d/Y', $request->startDate)->format('d/m/Y');
+        }
+
+        if(isset($request->endDate)){
+            $tanggal .=  ' - ' . \Carbon\Carbon::createFromFormat('m/d/Y', $request->endDate)->format('d/m/Y');
+        }
+
+        $data_rekap = [
+            'data_rata_rata' => $data_sensor->avg('data'),
+            'data_tertinggi' => $data_sensor->min('data'),
+            'created_at_tertinggi' => $data_sensor->where('data', $data_sensor->max('data'))->value('created_at'),
+            'data_terendah' => $data_sensor->max('data'),
+            'created_at_terendah' => $data_sensor->where('data', $data_sensor->min('data'))->value('created_at'),
+        ];
+
+        $pdf = PDF::loadview('dashboard.print.data_sensor',[
+            'tanggal' => $tanggal,
+            'data_rekap' => $data_rekap,
+        ]);
+
+    	return $pdf->download('laporan-data-sensor-pdf.pdf');
     }
 
     /**

@@ -114,7 +114,7 @@ class UserController extends Controller
             'name' => $request->name,
             'role' => $request->role,
         ];
-        // dd($data);
+
         if($request->email != $user->email){
             if (User::where('email', $request->email)->count() > 0) {
                 return redirect()->back()->with('danger', 'Email sudah dipakai user lain');
