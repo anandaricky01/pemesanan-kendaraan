@@ -82,10 +82,6 @@
 <script>
     function updateDataInView(data) {
         var status = data.success;
-        var data_tinggi_air = data.data;
-        var data_rekap = data.data_rekap;
-        // console.log(data);
-
         var tableBody = document.getElementById('data-body');
         var data_tertinggi = document.getElementById('data-tertinggi');
         var data_terendah = document.getElementById('data-terendah');
@@ -93,48 +89,66 @@
 
         // Kosongkan isi tabel sebelum menambahkan data baru
         tableBody.innerHTML = '';
-
-        // Iterasi melalui setiap objek data
-        data_tinggi_air.forEach(function(data) {
+        
+        if (status == true && data.data != null) {
+            var data_tinggi_air = data.data;
+            var data_rekap = data.data_rekap;
+            // console.log(data);
+            
+            // Iterasi melalui setiap objek data
+            data_tinggi_air.forEach(function(data) {
+                var row = document.createElement('tr');
+                row.setAttribute('class', 'bg-slate-50 border-b dark:bg-gray-800 dark:border-gray-700');
+    
+                var tanggalCell = document.createElement('td');
+                tanggalCell.setAttribute('id', 'tanggal');
+                tanggalCell.setAttribute('class', 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white');
+                tanggalCell.textContent = data.tanggal;
+                row.appendChild(tanggalCell);
+    
+                var tinggiAirCell = document.createElement('td');
+                tinggiAirCell.setAttribute('id', 'tinggi_air');
+                tinggiAirCell.setAttribute('class', 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white');
+                tinggiAirCell.textContent = data.tinggi;
+                row.appendChild(tinggiAirCell);
+    
+                var deviceCell = document.createElement('td');
+                deviceCell.setAttribute('id', 'device');
+                deviceCell.setAttribute('class', 'px-6 py-4');
+                deviceCell.textContent = data.device;
+                row.appendChild(deviceCell);
+    
+                var statusCell = document.createElement('td');
+                statusCell.setAttribute('class', 'px-6 py-4');
+    
+                var statusElement = document.createElement('p');
+                statusElement.textContent = data.status;
+                statusElement.setAttribute('id', 'status');
+                statusElement.setAttribute('class', 'bg-sky-500 rounded p-1 text-white text-center');
+                statusCell.appendChild(statusElement);
+    
+                row.appendChild(statusCell);
+                tableBody.appendChild(row);
+            });
+            
+            data_tertinggi.textContent = (29 - data_rekap.data_tertinggi) > 0 ? 'Naik ' + (29 - data_rekap.data_tertinggi) + ' cm' : 'Turun ' + -1*(29 - data_rekap.data_tertinggi) + ' cm';
+            data_terendah.textContent = (29 - data_rekap.data_terendah) > 0 ? 'Naik ' + (29 - data_rekap.data_terendah) + ' cm' : 'Turun ' + -1*(29 - data_rekap.data_terendah) + ' cm';
+            tinggi_rata_rata.textContent = (29 - data_rekap.data_rata_rata).toFixed(3) > 0 ? 'Naik ' + (29 - data_rekap.data_rata_rata).toFixed(3) + ' cm' : 'Turun ' + -1*(29 - data_rekap.data_rata_rata).toFixed(3) + ' cm';
+        } else {
             var row = document.createElement('tr');
             row.setAttribute('class', 'bg-slate-50 border-b dark:bg-gray-800 dark:border-gray-700');
+            var errorCell = document.createElement('td');
+            errorCell.setAttribute('id', 'error');
+            errorCell.setAttribute('collspan', '4');
+            errorCell.setAttribute('class', 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white');
+            errorCell.textContent = "Terdapat masalah pada server/Data masih kosong!";
+            row.appendChild(errorCell);
 
-            var tanggalCell = document.createElement('td');
-            tanggalCell.setAttribute('id', 'tanggal');
-            tanggalCell.setAttribute('class', 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white');
-            tanggalCell.textContent = data.tanggal;
-            row.appendChild(tanggalCell);
-
-            var tinggiAirCell = document.createElement('td');
-            tinggiAirCell.setAttribute('id', 'tinggi_air');
-            tinggiAirCell.setAttribute('class', 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white');
-            tinggiAirCell.textContent = data.tinggi;
-            row.appendChild(tinggiAirCell);
-
-            var deviceCell = document.createElement('td');
-            deviceCell.setAttribute('id', 'device');
-            deviceCell.setAttribute('class', 'px-6 py-4');
-            deviceCell.textContent = data.device;
-            row.appendChild(deviceCell);
-
-            var statusCell = document.createElement('td');
-            statusCell.setAttribute('class', 'px-6 py-4');
-
-            var statusElement = document.createElement('p');
-            statusElement.textContent = data.status;
-            statusElement.setAttribute('id', 'status');
-            statusElement.setAttribute('class', 'bg-sky-500 rounded p-1 text-white text-center');
-            statusCell.appendChild(statusElement);
-
-            row.appendChild(statusCell);
-
+            data_tertinggi.textContent = 'Null';
+            data_terendah.textContent = 'Null';
+            tinggi_rata_rata.textContent = 'Null';
             tableBody.appendChild(row);
-        });
-
-        data_tertinggi.textContent = (29 - data_rekap.data_tertinggi) > 0 ? 'Naik ' + (29 - data_rekap.data_tertinggi) + ' cm' : 'Turun ' + -1*(29 - data_rekap.data_tertinggi) + ' cm';
-        data_terendah.textContent = (29 - data_rekap.data_terendah) > 0 ? 'Naik ' + (29 - data_rekap.data_terendah) + ' cm' : 'Turun ' + -1*(29 - data_rekap.data_terendah) + ' cm';
-        tinggi_rata_rata.textContent = (29 - data_rekap.data_rata_rata).toFixed(3) > 0 ? 'Naik ' + (29 - data_rekap.data_rata_rata).toFixed(3) + ' cm' : 'Turun ' + -1*(29 - data_rekap.data_rata_rata).toFixed(3) + ' cm';
-        // tinggi_rata_rata.textContent = (29 - data_rekap.data_rata_rata).toFixed(3) + ' cm';
+        }
     }
 
     function getDataFromAPI() {
@@ -148,6 +162,10 @@
                 console.error(error);
             });
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        getDataFromAPI(); // Memanggil fungsi getDataFromAPIChart saat dokumen sudah siap
+    });
 
     setInterval(getDataFromAPI, 2000);
 </script>
