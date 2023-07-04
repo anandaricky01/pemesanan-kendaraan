@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
-    public function log(){
-        return $this->hasMany(Log::class);
+    public function pemesanan(){
+        return $this->hasMany(Pemesanan::class);
     }
 }

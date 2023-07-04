@@ -27,12 +27,12 @@
     <div class="mb-10">
         <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
         <div class="flex items-center mb-4">
-            <input id="superadmin" type="radio" value="superadmin" name="role" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="superadmin" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Super Admin</label>
+            <input id="admin" type="radio" value="admin" name="role" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="admin" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Admin</label>
         </div>
         <div class="flex items-center">
-            <input checked id="admin" type="radio" value="admin" name="role" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="admin" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Admin</label>
+            <input checked id="pengelola" type="radio" value="pengelola" name="role" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="pengelola" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pengelola</label>
         </div>
     </div>
 

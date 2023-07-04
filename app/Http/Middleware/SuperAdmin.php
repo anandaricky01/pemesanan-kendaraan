@@ -16,8 +16,8 @@ class SuperAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role != 'superadmin'){
-            return abort(403, 'Area Otoritas Superadmin!');
+        if(auth()->user()->role != 'admin'){
+            return abort(403, 'Area Otoritas Admin!');
         }
 
         return $next($request);

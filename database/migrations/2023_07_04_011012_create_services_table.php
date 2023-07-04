@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sensors', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('device_id')->constrained('devices')->onDelete('cascade');
-            $table->integer('data');
+            $table->foreignId('kendaraan_id')->constrained('kendaraans')->onDelete('cascade');
+            $table->date('tanggal');
+            $table->string('detail');
+            $table->enum('status', ['maintenance', 'done']);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sensors');
+        Schema::dropIfExists('services');
     }
 };

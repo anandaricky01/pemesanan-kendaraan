@@ -59,9 +59,8 @@ class UserController extends Controller
             return redirect()->back()->with('danger', 'Email telah digunakan!');
         }
 
-        $data = $request->only(['name', 'email']);
+        $data = $request->only(['name', 'email', 'role']);
         $data['password'] = Hash::make($request->password);
-
         User::create($data);
 
         return redirect(route('dashboard.user.index'))->with('success', 'User berhasil dibuat');

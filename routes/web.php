@@ -1,13 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DeviceController;
-use App\Http\Controllers\Admin\LogController;
+use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\UserController;
-// use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,35 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/monitoring', [HomeController::class, 'monitoring'])->name('monitoring');
-Route::get('/about', [HomeController::class, 'about'])->name('about');
-// Auth::routes();
 Auth::routes([
   'register' => false, // Registration Routes...
   'reset' => false, // Password Reset Routes...
   'verify' => false, // Email Verification Routes...
 ]);
-// Route::group(['middleware' => ['auth', 'verified']], function(){
+
 Route::group(['middleware' => ['auth']], function(){
-    Route::group(['prefix' => 'dashboard'], function(){
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/get-latest-data', [DashboardController::class, 'fetchData'])->name('fetch-data');
 
-        Route::get('/device/sensor/print', [DeviceController::class, 'cetak_pdf'])->name('dashboard.sensor.print');
-        Route::get('/device/sensor', [DeviceController::class, 'sensor'])->name('dashboard.sensor');
-
-        Route::resource('/device', DeviceController::class)
-            ->name('index', 'dashboard.device.index')
-            ->name('show', 'dashboard.device.show')
-            ->name('create', 'dashboard.device.create')
-            ->name('store', 'dashboard.device.store')
-            ->name('edit', 'dashboard.device.edit')
-            ->name('update', 'dashboard.device.update')
-            ->name('destroy', 'dashboard.device.delete');
-
-        Route::get('/log/print', [logController::class, 'cetak_pdf'])->name('dashboard.log.print');
-        Route::get('/log', [LogController::class, 'index'])->name('dashboard.log.index');
+        Route::resource('kendaraan', KendaraanController::class)
+            ->name('index', 'dashboard.kendaraan.index')
+            ->name('create', 'dashboard.kendaraan.create')
+            ->name('store', 'dashboard.kendaraan.store')
+            ->name('show', 'dashboard.kendaraan.show')
+            ->name('edit', 'dashboard.kendaraan.edit')
+            ->name('update', 'dashboard.kendaraan.update')
+            ->name('destroy', 'dashboard.kendaraan.delete');
 
         Route::get('/my_profile', [UserController::class, 'my_profile'])->name('my_profile');
         Route::get('/edit_my_profile', [UserController::class, 'edit_my_profile'])->name('edit_my_profile');
@@ -63,14 +46,4 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('edit', 'dashboard.user.edit')
         ->name('update', 'dashboard.user.update')
         ->name('destroy', 'dashboard.user.delete');
-
-        Route::resource('contact', ContactController::class)
-        ->name('index', 'dashboard.contact.index')
-        ->name('create', 'dashboard.contact.create')
-        ->name('store', 'dashboard.contact.store')
-        ->name('edit', 'dashboard.contact.edit')
-        ->name('update', 'dashboard.contact.update')
-        ->name('destroy', 'dashboard.contact.delete')
-        ->except('show');
-    });
 });

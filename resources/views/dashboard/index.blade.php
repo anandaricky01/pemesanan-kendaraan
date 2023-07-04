@@ -1,173 +1,221 @@
 @extends('dashboard.layout.layout')
 @section('container')
-
-<section class="mb-5 grid grid-cols-3 gap-4">
-    <div class="col-span-3 md:col-span-1">
-        <div class="grid grid-cols-3 bg-slate-50 p-3 dark:bg-slate-700 rounded-lg border border-gray-200 shadow-md">
-            <div class="bg-red-500 rounded-full p-3 justify-self-center self-center">
-                <i data-feather="trending-up" class="stroke-white"></i>
-            </div>
-            <div class="col-span-2">
-                <div class="grid grid-rows-2 p-2">
-                    <p class="text-base font-medium dark:text-white">Data Tertinggi</p>
-                    <p id="data-tertinggi" class="text-xl font-bold dark:text-white"></p>
-                </div>
-            </div>
+<section id="halo">
+    <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2 md:col-span-1 md:hidden">
+            <h3 class="text-3xl font-bold dark:text-slate-100">Halo, {{ auth()->user()->name }}! Selamat Datang!</h3>
+            <p>
+                <span class="dark:text-slate-100">yuk, cek kegiatan apa saja hari ini!</span>
+            </p>
         </div>
-    </div>
-    <div class="col-span-3 md:col-span-1">
-        <div class="grid grid-cols-3 bg-slate-50 p-3 dark:bg-slate-700 rounded-lg border border-gray-200 shadow-md">
-            <div class="bg-emerald-500 rounded-full p-3 justify-self-center self-center">
-                <i data-feather="trending-down" class="stroke-white"></i>
-            </div>
-            <div class="col-span-2">
-                <div class="grid grid-rows-2 p-2">
-                    <p class="text-base font-medium dark:text-white">Data Terendah</p>
-                    <p id="data-terendah" class="text-xl font-bold dark:text-white"></p>
-                </div>
-            </div>
+        <div class="col-span-2 md:col-span-1 justify-self-center self-center">
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_7h7PLlcqez.json" background="transparent"
+                speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
         </div>
-    </div>
-    <div class="col-span-3 md:col-span-1">
-        <div class="grid grid-cols-3 bg-slate-50 p-3 dark:bg-slate-700 rounded-lg border border-gray-200 shadow-md">
-            <div class="bg-yellow-300 rounded-full p-3 justify-self-center self-center">
-                <i data-feather="bar-chart-2" class="stroke-white"></i>
-            </div>
-            <div class="col-span-2">
-                <div class="grid grid-rows-2 p-2">
-                    <p class="text-base font-medium dark:text-white">Tinggi rata - rata</p>
-                    <p id="tinggi-rata-rata" class="text-xl font-bold dark:text-white"></p>
-                </div>
-            </div>
+        <div class="col-span-2 md:col-span-1 invisible md:visible self-center">
+            <h3 class="text-3xl font-bold dark:text-slate-100">Halo, {{ auth()->user()->name }}! Selamat Datang!</h3>
+            <p>
+                <span class="dark:text-slate-100">yuk, cek kegiatan apa saja hari ini!</span>
+            </p>
         </div>
     </div>
 </section>
+<section id="tabel">
+    <div class="grid grid-cols-2 gap-4">
+        <div id="tabel-kendaraan-available" class="col-span-2 md:col-span-1">
+            <p class="dark:text-slate-100 text-lg mb-2">Kendaraan Tersedia</p>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                ID
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Plat
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Merk
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($kendaraan->count() > 0)
+                            @foreach ($kendaraan->where('status', 'active')->take(5) as $ken)
+                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $ken->id }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $ken->plat }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $ken->merk }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @if ($ken->status == 'maintenance')
+                                        <span class="bg-red-500 px-3 py-1 rounded text-white hover:bg-red-600">
+                                            {{ $ken->status }}
+                                        </span>
+                                        @elseif($ken->status == 'expedition')
+                                        <span class="bg-yellow-300 px-3 py-1 rounded text-white hover:bg-orange-400">
+                                            {{ $ken->status }}
+                                        </span>
+                                        @else
+                                        <span class="bg-green-500 px-3 py-1 rounded text-white hover:bg-green-600">
+                                            {{ $ken->status }}
+                                        </span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <td colspan="4" class="text-center px-3 py-2">
+                                <span class="dark:text-slate-100">
+                                    Kendaraan Kosong
+                                </span>
+                            </td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="tabel-kendaraan-available" class="col-span-2 md:col-span-1">
+            <p class="dark:text-slate-100 text-lg mb-2">Kendaraan Dalam Service</p>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                ID
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Plat
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Merk
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($kendaraan->count() > 0)
+                            @foreach ($kendaraan->where('status', 'maintenance')->take(5) as $ken)
+                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $ken->id }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $ken->plat }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $ken->merk }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @if ($ken->status == 'maintenance')
+                                        <span class="bg-red-500 px-3 py-1 rounded text-white hover:bg-red-600">
+                                            {{ $ken->status }}
+                                        </span>
+                                        @elseif($ken->status == 'expedition')
+                                        <span class="bg-yellow-300 px-3 py-1 rounded text-white hover:bg-orange-400">
+                                            {{ $ken->status }}
+                                        </span>
+                                        @else
+                                        <span class="bg-green-500 px-3 py-1 rounded text-white hover:bg-green-600">
+                                            {{ $ken->status }}
+                                        </span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <td colspan="4" class="text-center px-3 py-2">
+                                <span class="dark:text-slate-100">
+                                    Kendaraan Kosong
+                                </span>
+                            </td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="tabel-kendaraan-available" class="col-span-2">
+            <p class="dark:text-slate-100 text-lg mb-2">Kendaraan Dalam Ekspedisi</p>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                ID
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Plat
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Merk
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($pemesanan->count() > 0)
+                            @foreach ($pemesanan->take(5) as $ken)
+                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $ken->id }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $ken->plat }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $ken->merk }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @if ($ken->status == 'maintenance')
+                                        <span class="bg-red-500 px-3 py-1 rounded text-white hover:bg-red-600">
+                                            {{ $ken->status }}
+                                        </span>
+                                        @elseif($ken->status == 'expedition')
+                                        <span class="bg-yellow-300 px-3 py-1 rounded text-white hover:bg-orange-400">
+                                            {{ $ken->status }}
+                                        </span>
+                                        @else
+                                        <span class="bg-green-500 px-3 py-1 rounded text-white hover:bg-green-600">
+                                            {{ $ken->status }}
+                                        </span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <td colspan="4" class="text-center px-3 py-2">
+                                <span class="dark:text-slate-100">
+                                    Belum ada pemesanan
+                                </span>
+                            </td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-<section id="data-baru" class="mb-5">
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg border">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <caption
-                class="p-5 text-lg font-semibold text-left text-gray-900 bg-slate-50 dark:text-white dark:bg-gray-800">
-                Data Baru Masuk
-                <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Data baru akan masuk setiap 5 detik
-                    sekali</p>
-            </caption>
-            <thead class="text-xs text-gray-700 uppercase bg-white dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Tanggal
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Tinggi Air
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Device
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Status
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="data-body">
-            </tbody>
-        </table>
     </div>
 </section>
-
-<section id="data-record">
-    <div class="bg-slate-50 dark:bg-slate-700 rounded-lg border border-gray-200 shadow-md">
-        <div id="tester" class=""></div>
-    </div>
-</section>
-<script>
-    function updateDataInView(data) {
-        var status = data.success;
-        var tableBody = document.getElementById('data-body');
-        var data_tertinggi = document.getElementById('data-tertinggi');
-        var data_terendah = document.getElementById('data-terendah');
-        var tinggi_rata_rata = document.getElementById('tinggi-rata-rata');
-
-        // Kosongkan isi tabel sebelum menambahkan data baru
-        tableBody.innerHTML = '';
-        
-        if (status == true && data.data != null) {
-            var data_tinggi_air = data.data;
-            var data_rekap = data.data_rekap;
-            // console.log(data);
-            
-            // Iterasi melalui setiap objek data
-            data_tinggi_air.forEach(function(data) {
-                var row = document.createElement('tr');
-                row.setAttribute('class', 'bg-slate-50 border-b dark:bg-gray-800 dark:border-gray-700');
-    
-                var tanggalCell = document.createElement('td');
-                tanggalCell.setAttribute('id', 'tanggal');
-                tanggalCell.setAttribute('class', 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white');
-                tanggalCell.textContent = data.tanggal;
-                row.appendChild(tanggalCell);
-    
-                var tinggiAirCell = document.createElement('td');
-                tinggiAirCell.setAttribute('id', 'tinggi_air');
-                tinggiAirCell.setAttribute('class', 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white');
-                tinggiAirCell.textContent = data.tinggi;
-                row.appendChild(tinggiAirCell);
-    
-                var deviceCell = document.createElement('td');
-                deviceCell.setAttribute('id', 'device');
-                deviceCell.setAttribute('class', 'px-6 py-4');
-                deviceCell.textContent = data.device;
-                row.appendChild(deviceCell);
-    
-                var statusCell = document.createElement('td');
-                statusCell.setAttribute('class', 'px-6 py-4');
-    
-                var statusElement = document.createElement('p');
-                statusElement.textContent = data.status;
-                statusElement.setAttribute('id', 'status');
-                statusElement.setAttribute('class', 'bg-sky-500 rounded p-1 text-white text-center');
-                statusCell.appendChild(statusElement);
-    
-                row.appendChild(statusCell);
-                tableBody.appendChild(row);
-            });
-            
-            data_tertinggi.textContent = (29 - data_rekap.data_tertinggi) > 0 ? 'Naik ' + (29 - data_rekap.data_tertinggi) + ' cm' : 'Turun ' + -1*(29 - data_rekap.data_tertinggi) + ' cm';
-            data_terendah.textContent = (29 - data_rekap.data_terendah) > 0 ? 'Naik ' + (29 - data_rekap.data_terendah) + ' cm' : 'Turun ' + -1*(29 - data_rekap.data_terendah) + ' cm';
-            tinggi_rata_rata.textContent = (29 - data_rekap.data_rata_rata).toFixed(3) > 0 ? 'Naik ' + (29 - data_rekap.data_rata_rata).toFixed(3) + ' cm' : 'Turun ' + -1*(29 - data_rekap.data_rata_rata).toFixed(3) + ' cm';
-        } else {
-            var row = document.createElement('tr');
-            row.setAttribute('class', 'bg-slate-50 border-b dark:bg-gray-800 dark:border-gray-700');
-            var errorCell = document.createElement('td');
-            errorCell.setAttribute('id', 'error');
-            errorCell.setAttribute('collspan', '4');
-            errorCell.setAttribute('class', 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white');
-            errorCell.textContent = "Terdapat masalah pada server/Data masih kosong!";
-            row.appendChild(errorCell);
-
-            data_tertinggi.textContent = 'Null';
-            data_terendah.textContent = 'Null';
-            tinggi_rata_rata.textContent = 'Null';
-            tableBody.appendChild(row);
-        }
-    }
-
-    function getDataFromAPI() {
-        fetch('{{ route('fetch-data') }}')
-            .then(response => response.json())
-            .then(data => {
-                updateDataInView(data); // Panggil fungsi untuk memperbarui tampilan dengan data yang diterima
-                // console.log(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        getDataFromAPI(); // Memanggil fungsi getDataFromAPIChart saat dokumen sudah siap
-    });
-
-    setInterval(getDataFromAPI, 2000);
-</script>
-@include('dashboard.utils.chart')
 @endsection

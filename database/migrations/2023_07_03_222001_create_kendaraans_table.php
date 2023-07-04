@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('logs', function (Blueprint $table) {
-            $table->enum('activity', ['create', 'update', 'delete']);
+        Schema::create('kendaraans', function (Blueprint $table) {
+            $table->id();
+            $table->string('plat');
+            $table->string('merk');
+            $table->enum('status', ['active', 'expedition', 'maintenance']);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('logs', function (Blueprint $table) {
-            $table->dropColumn('activity');
-        });
+        Schema::dropIfExists('kendaraans');
     }
 };
