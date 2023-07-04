@@ -27,7 +27,7 @@
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <caption
                 class="relative p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-                <a href="" class="relative md:absolute md:top-7 md:right-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</a>
+                <a href="{{ route('dashboard.kendaraan.create') }}" class="relative md:absolute md:top-7 md:right-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</a>
                 <br class="md:hidden">
                 <p class="mt-5 md:mt-0">
                     Daftar Kendaraan

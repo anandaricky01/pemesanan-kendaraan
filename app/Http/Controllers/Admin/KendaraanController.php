@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kendaraan;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class KendaraanController extends Controller
@@ -40,7 +41,20 @@ class KendaraanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'merk' => 'required',
+            'plat' => ['required', 'unique:kendaraans,plat'],
+        ]);
+
+        $validated['status'] = 'active';
+
+        try {
+            $kendaraan = Kendaraan::create($validated);
+
+            return redirect()->route('dashboard.kendaraan.index')->with('success', 'Kendaraan dengan plat nomor ' . $kendaraan->plat . ' sukses ditambahkan!');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('danger', $e->errorInfo);
+        }
     }
 
     /**
@@ -51,7 +65,9 @@ class KendaraanController extends Controller
      */
     public function show(Kendaraan $kendaraan)
     {
-        //
+        return view('dashboard.kendaraan.show', [
+            'kendaraan' => $kendaraan,
+        ]);
     }
 
     /**

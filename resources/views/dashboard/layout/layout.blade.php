@@ -21,6 +21,7 @@
     </script>
 
     <script src="https://cdn.plot.ly/plotly-2.18.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title>Dashboard Admin</title>
 </head>
@@ -64,7 +65,7 @@
         <div id="loading-spinner"></div>
     </div>
 
-    
+
     @include('dashboard.layout.components.sidebar')
     <div class="p-4 sm:ml-64">
         <div class="p-4 mt-14">
