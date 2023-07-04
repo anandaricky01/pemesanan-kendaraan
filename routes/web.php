@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KendaraanController;
+use App\Http\Controllers\Admin\DestinasiController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Log\DestinasiLogController;
+use App\Http\Controllers\Log\KendaraanLogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +36,21 @@ Route::group(['middleware' => ['auth']], function(){
             ->name('edit', 'dashboard.kendaraan.edit')
             ->name('update', 'dashboard.kendaraan.update')
             ->name('destroy', 'dashboard.kendaraan.delete');
+
+        Route::resource('destinasi', DestinasiController::class)
+            ->name('index', 'dashboard.destinasi.index')
+            ->name('create', 'dashboard.destinasi.create')
+            ->name('store', 'dashboard.destinasi.store')
+            ->name('show', 'dashboard.destinasi.show')
+            ->name('edit', 'dashboard.destinasi.edit')
+            ->name('update', 'dashboard.destinasi.update')
+            ->name('destroy', 'dashboard.destinasi.delete');
+
+        Route::get('/kendaraan-logs/{id}', [KendaraanLogController::class, 'show'])->name('dashboard.kendaraan_logs.show');
+        Route::get('/kendaraan-logs', [KendaraanLogController::class, 'index'])->name('dashboard.kendaraan_logs.index');
+
+        Route::get('/destinasi-logs/{id}', [DestinasiLogController::class, 'show'])->name('dashboard.destinasi_logs.show');
+        Route::get('/destinasi-logs', [DestinasiLogController::class, 'index'])->name('dashboard.destinasi_logs.index');
 
         Route::get('/my_profile', [UserController::class, 'my_profile'])->name('my_profile');
         Route::get('/edit_my_profile', [UserController::class, 'edit_my_profile'])->name('edit_my_profile');

@@ -14,4 +14,14 @@ class Destinasi extends Model
         'alamat',
         'deskripsi',
     ];
+
+    public function scopeFilter($query, array $searchTerm)
+    {
+        $query->when($searchTerm['search'] ?? false, function ($query, $searchTerm) {
+            $query->where(function ($query) use ($searchTerm) {
+                $query->where('destinasi', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('alamat', 'like', '%' . $searchTerm . '%');
+            });
+        });
+    }
 }

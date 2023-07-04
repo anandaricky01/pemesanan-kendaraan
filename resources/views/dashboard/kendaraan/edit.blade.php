@@ -10,13 +10,15 @@
 </section>
 <section id="create-kendaraan">
     <p class="dark:text-slate-100 font-bold text-2xl mb-5">
-        Tambah Kendaraan
+        Edit Kendaraan
     </p>
-    <form action="{{ route('dashboard.kendaraan.store') }}" method="post">
+    <form action="{{ route('dashboard.kendaraan.update', $kendaraan->id) }}" method="post">
         @csrf
+        @method('put')
         <div class="mb-6">
             <label for="plat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masukan Plat Nomor Kendaraan</label>
             <input type="text" id="plat"
+                value="{{ $kendaraan->plat }}"
                 name="plat"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 @error('plat') border-red-600 @enderror dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="Contoh : N 4567 BAA" required>
@@ -27,6 +29,7 @@
         <div class="mb-6">
             <label for="Merk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Merk Kendaraan</label>
             <input type="text" id="Merk"
+                value="{{ $kendaraan->merk }}"
                 name="merk"
                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 @error('merk') border-red-600 @enderror dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="Contoh : Honda"

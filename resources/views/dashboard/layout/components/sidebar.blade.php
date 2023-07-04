@@ -132,7 +132,7 @@
                             Kendaraan</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('dashboard.destinasi.index') }}"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Data
                             Destinasi</a>
                     </li>
@@ -171,16 +171,35 @@
             </li>
             @endif
             <li>
-                <a href="#"
-                    class="flex items-center p-2 text-base font-normal {{ request()->is('dashboard/log') ? 'border-4 border-y-white border-r-white border-l-blue-500' : '' }} text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base font-normal {{ request()->is('dashboard/device*') ? 'border-4 border-y-white border-r-white border-l-blue-500' : '' }} text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    aria-controls="dropdown-log" data-collapse-toggle="dropdown-log">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         <path fill-rule="evenodd"
                             d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z"
                             clip-rule="evenodd" />
                     </svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Log</span>
-                </a>
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Log Aplikasi</span>
+                    <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <ul id="dropdown-log" class="hidden py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('dashboard.kendaraan_logs.index') }}"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Log
+                            Kendaraan</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('dashboard.destinasi_logs.index') }}"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Log
+                            Destinasi</a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

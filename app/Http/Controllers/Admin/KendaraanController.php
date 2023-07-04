@@ -78,7 +78,9 @@ class KendaraanController extends Controller
      */
     public function edit(Kendaraan $kendaraan)
     {
-        //
+        return view('dashboard.kendaraan.edit', [
+            'kendaraan' => $kendaraan,
+        ]);
     }
 
     /**
@@ -90,7 +92,24 @@ class KendaraanController extends Controller
      */
     public function update(Request $request, Kendaraan $kendaraan)
     {
-        //
+        $validated = $request->validate([
+            'plat' => 'required',
+            'merk' => 'required',
+        ]);
+
+        if($request->plat != $kendaraan->plat){
+            if(Kendaraan::where('plat', $request->plat)->where('id', $kendaraan->id)->count() > 0){
+                return redirect()->back()->with('danger', 'Plat sudah terdaftar pada kendaraan lain!');
+            }
+        }
+
+        try {
+            $kendaraan->update($validated);
+
+            return redirect()->route('dashboard.kendaraan.index')->with('success', 'Kendaraan dengan nomor plat ' . $kendaraan->plat . ' berhasil diedit!');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('danger', $e->errorInfo);
+        }
     }
 
     /**
@@ -101,6 +120,12 @@ class KendaraanController extends Controller
      */
     public function destroy(Kendaraan $kendaraan)
     {
-        //
+        $data_lama = $kendaraan;
+        try {
+            $kendaraan->delete();
+            return redirect(route('dashboard.kendaraan.index'))->with('success', 'Kendaraan dengan plat ' . $data_lama->plat . ' berhasil dihapus');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('danger', $e->errorInfo);
+        }
     }
 }
