@@ -61,6 +61,21 @@ Jelaskan cara penggunaan proyekmu, termasuk perintah yang perlu dijalankan, rute
 Jika kamu ingin berkontribusi pada proyek ini, silakan ikuti langkah-langkah berikut:
 
 1. Fork repositori ini.
-2. Buat branch baru:
+2. Buat branch baru: 
+- git checkout -b fitur-baru
+3. Lakukan perubahan yang diinginkan.
+4. Commit perubahan:
+- git commit -m "Deskripsi perubahan"
+5. Push ke branch yang baru dibuat:
+- git push origin fitur-baru
+6. Buat Pull Request di repositori utama.
+
+## Lisensi
+
+[MIT](https://opensource.org/licenses/MIT)
+
+
+
+
 
 
