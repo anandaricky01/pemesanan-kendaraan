@@ -9,6 +9,8 @@ use App\Models\Kendaraan;
 use App\Observers\KendaraanObserver;
 use App\Models\Destinasi;
 use App\Observers\DestinasiObserver;
+use App\Models\Pemesanan;
+use App\Observers\PemesananObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,5 +36,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::defaultView('vendor.pagination.default');
         Kendaraan::observe(KendaraanObserver::class);
         Destinasi::observe(DestinasiObserver::class);
+        Pemesanan::observe(PemesananObserver::class);
     }
 }

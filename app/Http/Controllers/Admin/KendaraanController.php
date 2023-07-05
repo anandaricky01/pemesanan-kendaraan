@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kendaraan;
+use App\Models\RiwayatPemesanan;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -65,8 +66,11 @@ class KendaraanController extends Controller
      */
     public function show(Kendaraan $kendaraan)
     {
+        $jumlah_bbm = RiwayatPemesanan::where('kendaraan', $kendaraan->plat);
+        // dd($jumlah_bbm);
         return view('dashboard.kendaraan.show', [
             'kendaraan' => $kendaraan,
+            'jumlah_bbm' => $jumlah_bbm,
         ]);
     }
 

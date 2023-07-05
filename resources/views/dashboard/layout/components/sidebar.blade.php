@@ -139,6 +139,17 @@
                 </ul>
             </li>
             <li>
+                <a href="{{ route('dashboard.pemesanan.index') }}"
+                    class="flex items-center p-2 text-base font-normal {{ request()->is('dashboard') ? 'border-4 border-y-white border-r-white border-l-blue-500' : '' }} text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>
+                    <span class="ml-3">Pemesanan Kendaraan</span>
+                </a>
+            </li>
+            <li>
                 <button type="button"
                     class="flex items-center w-full p-2 text-base {{ request()->is('dashboard/user*') ? 'border-4 border-y-white border-r-white border-l-blue-500' : '' }} font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     aria-controls="dropdown-users" data-collapse-toggle="dropdown-users">
@@ -170,6 +181,43 @@
                 </ul>
             </li>
             @endif
+            @if (auth()->user()->role == 'pengelola')
+            <li>
+                <a href="{{ route('dashboard.pemesanan.persetujuan') }}"
+                    class="flex items-center p-2 text-base font-normal {{ request()->is('dashboard') ? 'border-4 border-y-white border-r-white border-l-blue-500' : '' }} text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>
+                    <span class="ml-3">Pengajuan Kendaraan</span>
+                </a>
+            </li>
+            @endif
+            <li>
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base {{ request()->is('dashboard/user*') ? 'border-4 border-y-white border-r-white border-l-blue-500' : '' }} font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    aria-controls="dropdown-riwayat" data-collapse-toggle="dropdown-riwayat">
+                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                        <path d="M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 0 0 0-2h-1v-2a2 2 0 0 0 2-2ZM4 2h2v12H4V2Zm8 16H3a1 1 0 0 1 0-2h9v2Z"/>
+                      </svg>
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Riwayat</span>
+                    <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <ul id="dropdown-riwayat" class="hidden py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('dashboard.riwayat.pemesanan.index') }}"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            Riwayat Pemesanan
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li>
                 <button type="button"
                     class="flex items-center w-full p-2 text-base font-normal {{ request()->is('dashboard/device*') ? 'border-4 border-y-white border-r-white border-l-blue-500' : '' }} text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"

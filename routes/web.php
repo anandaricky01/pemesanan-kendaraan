@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\DestinasiController;
+use App\Http\Controllers\Admin\PemesananController;
+use App\Http\Controllers\Admin\RiwayatPemesananController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Log\DestinasiLogController;
 use App\Http\Controllers\Log\KendaraanLogController;
@@ -51,6 +53,25 @@ Route::group(['middleware' => ['auth']], function(){
 
         Route::get('/destinasi-logs/{id}', [DestinasiLogController::class, 'show'])->name('dashboard.destinasi_logs.show');
         Route::get('/destinasi-logs', [DestinasiLogController::class, 'index'])->name('dashboard.destinasi_logs.index');
+
+        Route::prefix('pemesanan')->group(function () {
+            Route::get('/', [PemesananController::class, 'index'])->name('dashboard.pemesanan.index');
+            Route::get('/pesan-kendaraan', [PemesananController::class, 'pemesanan'])->name('dashboard.pemesanan.pemesanan');
+            Route::get('/pesan-kendaraan/{id}', [PemesananController::class, 'detail_pemesanan'])->name('dashboard.pemesanan.detail_pemesanan');
+            Route::post('/pesan-kendaraan', [PemesananController::class, 'pemesananPost'])->name('dashboard.pemesanan.pemesananPost');
+
+            Route::get('/persetujuan', [PemesananController::class, 'persetujuan'])->name('dashboard.pemesanan.persetujuan');
+            Route::get('/persetujuan/{id}', [PemesananController::class, 'detail_persetujuan'])->name('dashboard.pemesanan.detail_persetujuan');
+            Route::put('/persetujuan/{id}/setujui', [PemesananController::class, 'setujui'])->name('dashboard.pemesanan.setujui');
+            Route::put('/persetujuan/{id}/tolak', [PemesananController::class, 'tolak'])->name('dashboard.pemesanan.tolak');
+
+            Route::post('/persetujuan/{id}/kembali', [PemesananController::class, 'kembali'])->name('dashboard.pemesanan.kembali');
+        });
+
+        Route::get('/riwayat-pemesanan', [RiwayatPemesananController::class, 'index'])->name('dashboard.riwayat.pemesanan.index');
+        Route::get('/riwayat-pemesanan/{id}', [RiwayatPemesananController::class, 'detail'])->name('dashboard.riwayat.pemesanan.detail');
+        Route::get('/export', [RiwayatPemesananController::class, 'exportToExcel'])->name('riwayat_pemesanan.export');
+
 
         Route::get('/my_profile', [UserController::class, 'my_profile'])->name('my_profile');
         Route::get('/edit_my_profile', [UserController::class, 'edit_my_profile'])->name('edit_my_profile');
